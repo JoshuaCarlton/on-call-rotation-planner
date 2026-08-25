@@ -35,14 +35,20 @@ def initialize_users_tab(parrent: ttk.Notebook) -> ttk.Frame:
 
     fields.pack(pady=10)
 
+    users = Users(user_tab)
+
     create_user_button = ttk.Button(
         master=user_tab,
         text="save new user",
-        command=lambda: save_user(name_string, phone_string, initials_string),
+        command=lambda: save_user(name_string, phone_string, initials_string, output_string, users),
     )
     create_user_button.pack(pady=10)
 
-    users = Users(user_tab)
+    output_string = tk.StringVar()
+    output = ttk.Label(master=user_tab, textvariable=output_string)
+    output.pack(pady=10)
+
+
     users.generate()
 
     return user_tab
