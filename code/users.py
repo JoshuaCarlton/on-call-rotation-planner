@@ -1,4 +1,5 @@
 import os
+import tkinter as tk
 from tkinter import ttk
 
 
@@ -31,17 +32,17 @@ class Users:
         self.generate()
 
     def pack_user(self, name_str, phone_str, initials_str):
-        user = ttk.Frame(self.frame)
-        name = ttk.Label(master=user, text = name_str.replace("_", " "))
-        phone = ttk.Label(master=user, text = phone_str)
-        initials = ttk.Label(master=user, text = initials_str)
-        name.pack(side = "left", padx=10)
-        phone.pack(side = "left", padx=10)
-        initials.pack(side = "left", padx=10)
+        user = ttk.Frame(self.frame, relief=tk.GROOVE)
+        name = ttk.Label(master=user, text=name_str.replace("_", " "))
+        phone = ttk.Label(master=user, text=phone_str)
+        initials = ttk.Label(master=user, text=initials_str)
+        name.pack(side="left", padx=10)
+        phone.pack(side="left", padx=10)
+        initials.pack(side="left", padx=10)
         delete_user = ttk.Button(
             master=user,
             text="delete user",
             command=lambda: self.delete_user(name_str, phone_str, initials_str),
         )
         delete_user.pack()
-        user.pack(pady = 10)
+        user.pack(pady=10)

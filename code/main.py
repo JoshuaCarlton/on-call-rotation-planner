@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
+from create_calendar_tab import initialize_calendar_tab
 from create_user_tab import initialize_users_tab
 
 
@@ -13,7 +14,7 @@ def main():
     notebook = ttk.Notebook(window)
 
     # calendar
-    calendar_tab = ttk.Frame(notebook)
+    calendar_tab = initialize_calendar_tab(notebook)
 
     # user
     users_tab = initialize_users_tab(notebook)
