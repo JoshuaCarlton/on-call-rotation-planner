@@ -24,7 +24,13 @@ def save_user(name_string, phone_string, initials_string, output_string, users):
     if name == "":
         output_string.set("error: name must be set")
         return
+    if initials != initials.replace(" ", ""):
+        output_string.set("error: initials cannot contain spaces")
+        return
 
+    name_string.set("")
+    phone_string.set("")
+    initials_string.set("")
     content = content + f"{name} {phone} {initials}\n"
     with open(abs_users, "w") as f:
         f.write(content)
@@ -38,6 +44,6 @@ def check_for_duplicates(new_name:str)->bool:
     lines = content.splitlines()
     for line in lines:
         name, _, _ = line.split()
-        if name == new_name:
+        if name.replace("_", "") == new_name.replace("_", ""):
             return True
     return False

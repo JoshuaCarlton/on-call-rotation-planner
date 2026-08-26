@@ -5,7 +5,7 @@ from save_user import save_user
 from users import Users
 
 
-def initialize_users_tab(parrent: ttk.Notebook) -> ttk.Frame:
+def initialize_users_tab(parrent: ttk.Notebook, user_picker, calendar) -> ttk.Frame:
     user_tab = ttk.Frame(parrent)
     fields = ttk.Frame(user_tab)
 
@@ -35,7 +35,7 @@ def initialize_users_tab(parrent: ttk.Notebook) -> ttk.Frame:
 
     fields.pack(pady=10)
 
-    users = Users(user_tab)
+    users = Users(user_tab, user_picker, calendar)
 
     create_user_button = ttk.Button(
         master=user_tab,

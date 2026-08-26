@@ -4,12 +4,15 @@ from tkinter import ttk
 
 
 class Users:
-    def __init__(self, parrent: ttk.Frame) -> None:
+    def __init__(self, parrent: ttk.Frame, user_picker, calendar) -> None:
         self.parrent = parrent
         self.frame = ttk.Frame(parrent)
+        self.user_picker = user_picker
+        self.calendar = calendar
         self.frame.pack()
 
     def generate(self):
+        self.user_picker.list_users()
         self.frame.pack_forget()
         self.frame = ttk.Frame(self.parrent)
         abs_users = os.path.abspath("storage/users.txt")
@@ -29,7 +32,9 @@ class Users:
         content = content.replace(f"{name} {phone} {initials}\n", "")
         with open(abs_users, "w") as f:
             f.write(content)
+        delete_turns(name)
         self.generate()
+        self.calendar.generate()
 
     def pack_user(self, name_str, phone_str, initials_str):
         user = ttk.Frame(self.frame, relief=tk.GROOVE)
@@ -46,3 +51,16 @@ class Users:
         )
         delete_user.pack()
         user.pack(pady=10)
+
+
+def delete_turns(name):
+    abs_turns = os.path.abspath("storage/turns.txt")
+    with open(abs_turns, "r") as f:
+        turns = f.read().splitlines()
+    content = ""
+    for turn in turns:
+        current_name, _, _, _ = turn.split()
+        if name != current_name:
+            content = content + f"{turn}\n"
+    with open(abs_turns, "w") as f:
+        f.write(content)
