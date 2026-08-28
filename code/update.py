@@ -12,6 +12,9 @@ def update_phone_number():
     ZOOM_CLIENT_ID = os.environ.get("ZOOM_CLIENT_ID")
     ZOOM_CLIENT_SECRET = os.environ.get("ZOOM_CLIENT_SECRET")
 
+    if not ZOOM_ACCOUNT_ID or not ZOOM_CLIENT_ID or not ZOOM_CLIENT_SECRET:
+        return
+
     zoom_client = ZoomClient(ZOOM_ACCOUNT_ID, ZOOM_CLIENT_ID, ZOOM_CLIENT_SECRET)
 
     todays_phone = find_todays_phone()
