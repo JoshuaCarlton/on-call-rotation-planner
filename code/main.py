@@ -3,6 +3,7 @@ from tkinter import ttk
 
 from create_calendar_tab import initialize_calendar_tab
 from create_user_tab import initialize_users_tab
+from update import update_phone_number
 
 
 def main():
@@ -22,6 +23,12 @@ def main():
     notebook.add(calendar_tab, text="calendar")
     notebook.add(users_tab, text="users")
     notebook.pack()
+
+    def on_closing():
+        window.destroy()
+        update_phone_number()
+
+    window.protocol("WM_DELETE_WINDOW", on_closing)
 
     window.mainloop()
 

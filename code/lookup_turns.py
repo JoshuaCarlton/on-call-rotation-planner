@@ -1,3 +1,4 @@
+import datetime
 import os
 from calendar import monthrange
 
@@ -55,3 +56,24 @@ def after(after: tuple[int, int, int], before: tuple[int, int, int]) -> bool:
     if amonth > bmonth:
         return True
     return aday > bday
+
+def find_todays_phone():
+    today = datetime.date.today()  # noqa: DTZ011
+    abs_turns = os.path.abspath("storage/turns.txt")
+    abs_users = os.path.abspath("storage/users.txt")
+    with open(abs_turns, "r") as f:
+        turns = f.read().splitlines()
+    with open(abs_users, "r") as f:
+        users = f.read().splitlines()
+
+    last_turn_user = "none"
+    for i in range(len(turns)):
+        new_name, ny, nm, nd = turns[i].split()
+        new_date = datetime.date(int(ny),int(nm),int(nd))
+        if today >= new_date:
+            last_turn_user = new_name
+    for user in users:
+        user_name, user_phone, _ = user.split()
+        if user_name == last_turn_user:
+            return user_phone
+    return "not found"
